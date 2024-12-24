@@ -1,0 +1,33 @@
+
+
+1)Presentation Katmanı
+Kullanıcının uygulamayla etkileşime geçececeği kısımlar olacaktır.
+Viewlar,stateler ve viewmodel'lar olacaktır.
+Activity,Fragment,Viewmodel gibi yapılar bu katmanda bulunur.
+Ayrıca UI bileşenlerinin durumunu yönetmek için genellikle bir UI State sınıfı tanımlanır.
+Her sayfa için ayrı bir package açılır.
+
+2)Data Katmanı
+Verilerin tutulduğu katmandır.
+Bu katman veritabanı,retrofit ve parsing işlemleri gibi data lojik işlemlerinin gerçekleştiği katmandır
+DTO,Mapper ve Repository Implementasyonu Class'ı da bu katman içerisinde yer alır.
+Dto : Api'den çektiğimiz verileri tutacağımız data class'lardır.(Data Transfer Object)
+Remote'nin içerisinde ise retrofit'le istek göndereceğimiz interface bulunacaktır
+Repository:Domain'deki repository'yi buraya implement edeceğiz.
+Sonrasında Repository'yi Use Case'Ye,Use Case'yi ViewModel'a,ViewModel'i ise UI'a bağlayacağız.
+Di kısmı ayrı olarak da konulabilir,data katmanının içerisine de konulabilir
+
+3)Domain Katmanı
+İş mantığını içeren katmandır
+Bu katman,iş kurallarını ve uygulamanın davranışlarını tanımlayan nesneleri içerir.
+Bu katmanın görevleri arasında veri yönetimi yer alır.
+Bu katman Presentation ve Data katmanını birbirinden izole eder,böylece uygulama daha modüler ve test edilebilir hale gelir.
+Unutmamamız gerekir ki Domain Katmanı içerisinden diğer hiçbir katmana erişim sağlanmamalıdır.
+Repository,UseCase ve Model yapıları yer alır.
+Model:Model'de api'den çektiğimiz verilerin tutulacağı data class'lar olacaktır.
+Aynı şekilde data katmanındaki dto'da da api'den çektiğimiz verilerin tutulacağı data classlar bulunur.
+Data'daki dto'da api'den çekilen verilerin tamamı tutulur,domain'deki dto'da ise uygulamada kullanacağımız verileri mapperlar'la dönüştürüp tutulur.
+Repository:Domain'deki repository bir interface,data'daki repository ise bir class olacak ve domain'deki interface'yi implement edeceğiz.
+Bu repository'e data'daki istek gönderdiğimiz interface'yi bağlayacağız.
+UseCase:Veriler üzerinde gerçekleşecek işlemleri tanımlar.Repository'yi bağlayacağımız sınıftır.
+Uygulamada asıl işi yapan sınıftır.Sadece tek bir iş yapar.
